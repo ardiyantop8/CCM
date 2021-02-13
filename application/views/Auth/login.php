@@ -13,14 +13,21 @@
 
     <!-- Custom styles for this template-->
     <link rel="stylesheet" href="<?= base_url("assets/css/sb-admin-2.min.css");  ?>">
-    <link rel="shortcut icon" href="<?= base_url('assets/img/icon/vote2.png'); ?>">
+    <link rel="shortcut icon" href="<?= base_url('assets/img/ccmbg1.png'); ?>">
     <style>
-
+        body {
+            /* background-image: url("<?= base_url('assets/img/bg2.jpg'); ?>");
+            height: 100%;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover; */
+            background-image: linear-gradient(to bottom right, #708090, #2C3531);
+        }
     </style>
 </head>
 
 <body>
-    <div class="container">
+    <div class="container" style="padding-top:100px; ">
         <!-- Outer Row -->
         <div class="row justify-content-center">
             <div class="col-lg-6">
@@ -36,12 +43,16 @@
                                     </div>
                                     <form class="user" method="post" action="<?= base_url('Auth');  ?>">
                                         <div class="form-group">
-                                            <input type="text" class="form-control form-control-user" id="username" name="username" placeholder="Masukan Username..." value="<?= set_value('username');  ?>">
+                                            <input type="text" class="form-control form-control-user" id="username" maxlength="16" name="username" placeholder="Masukan Username..." value="<?= set_value('username');  ?>">
                                             <?= form_error('username', '<small class="text-danger pl-3">', '</small>'); ?>
+                                            <span class="pesan-username" style="color:red; float:left; display: none; padding-top:5px;">Batas Max Username</span>
+                                            <span class="karakter-username" style="float:right; padding-top:5px;"><span id="count-username">0</span>/16</span>
                                         </div>
                                         <div class="form-group">
-                                            <input type="password" class="form-control form-control-user" name="password" id="password" placeholder="Password">
+                                            <input type="password" maxlength="16" class="form-control form-control-user" name="password" id="password" placeholder="Password">
                                             <?= form_error('password', '<small class="text-danger pl-3">', '</small>'); ?>
+                                            <span class="pesan-pwd" style="color:red; float:left; display: none; padding-top:5px;">Batas Max Password</span>
+                                            <span class="karakter-pwd" style="float:right; padding-top:5px;"><span id="count-pwd">0</span>/16</span>
                                         </div>
 
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
@@ -52,7 +63,7 @@
                                     </form>
                                     <hr>
                                     <div class="text-center">
-                                        <a class="small" href="#">Lupa Password?</a>
+                                        <!-- <a class="small" href="#">Lupa Password?</a> -->
                                     </div>
                                     <div class="text-center">
                                         <!-- <a class="small" href="<?= base_url('umum');  ?>">Kembali</a> -->
@@ -69,5 +80,51 @@
 
 
 </body>
+
+<script src=<?= base_url("assets/vendor/jquery/jquery.min.js");  ?>></script>
+<script src=<?= base_url("assets/vendor/bootstrap/js/bootstrap.bundle.min.js");  ?>></script>
+
+<!-- Core plugin JavaScript-->
+<script src=<?= base_url("assets/vendor/jquery-easing/jquery.easing.min.js");  ?>></script>
+
+<!-- Custom scripts for all pages-->
+<script src=<?= base_url("assets/js/sb-admin-2.min.js");  ?>></script>
+<script>
+    $(document).ready(function() {
+        // function untuk keyup inputan pesan
+        $(function() {
+            $("#username").keyup(function(event) {
+                $("#count-username").text($(this).val().length);
+                var x = $(this).val().length;
+                if (x >= 16) {
+                    $(this).css("border", '1px solid red');
+                    $(".pesan-username").show();
+                } else {
+                    $(".pesan-username").hide();
+                    $(this).css("border", '');
+                }
+            });
+
+        });
+        // tutup function untuk keyup inputan pesan
+
+        // function untuk keyup inputan pesan
+        $(function() {
+            $("#password").keyup(function(event) {
+                $("#count-pwd").text($(this).val().length);
+                var x = $(this).val().length;
+                if (x >= 16) {
+                    $(this).css("border", '1px solid red');
+                    $(".pesan-pwd").show();
+                } else {
+                    $(".pesan-pwd").hide();
+                    $(this).css("border", '');
+                }
+            });
+
+        });
+        // tutup function untuk keyup inputan pesan 
+    });
+</script>
 
 </html>
